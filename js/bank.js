@@ -9,21 +9,25 @@ function getInputValue(inputId) {
 
 // get and update total
 function updateTotalValue(totalValueId, inputAmount) {
-    const currentValue = document.getElementById(totalValueId);
-    const currentAmountText = currentValue.innerText;
-    const currentAmount = parseFloat(currentAmountText);
-    currentValue.innerText = currentAmount + inputAmount;
+    if (inputAmount > 0) {
+        const currentValue = document.getElementById(totalValueId);
+        const currentAmountText = currentValue.innerText;
+        const currentAmount = parseFloat(currentAmountText);
+        currentValue.innerText = currentAmount + inputAmount;
+    }
 }
 
 // update balance
 function updateBalance(inputAmount, isAdd) {
-    const totalBalance = document.getElementById("balance-total");
-    const balanceText = totalBalance.innerText;
-    const balanceAmount = parseFloat(balanceText);
-    if (isAdd == true) {
-        totalBalance.innerText = balanceAmount + inputAmount;
-    } else {
-        totalBalance.innerText = balanceAmount - inputAmount;
+    if (inputAmount > 0) {
+        const totalBalance = document.getElementById("balance-total");
+        const balanceText = totalBalance.innerText;
+        const balanceAmount = parseFloat(balanceText);
+        if (isAdd == true) {
+            totalBalance.innerText = balanceAmount + inputAmount;
+        } else {
+            totalBalance.innerText = balanceAmount - inputAmount;
+        }
     }
 }
 
