@@ -8,11 +8,23 @@ function getInputValue(inputId) {
 }
 
 // get and update total
-function updateTotalValue(totalValueId, newAmount) {
+function updateTotalValue(totalValueId, inputAmount) {
     const currentValue = document.getElementById(totalValueId);
     const currentAmountText = currentValue.innerText;
     const currentAmount = parseFloat(currentAmountText);
-    currentValue.innerText = currentAmount + newAmount;
+    currentValue.innerText = currentAmount + inputAmount;
+}
+
+// update balance
+function updateBalance(inputAmount, isAdd) {
+    const totalBalance = document.getElementById("balance-total");
+    const balanceText = totalBalance.innerText;
+    const balanceAmount = parseFloat(balanceText);
+    if (isAdd == true) {
+        totalBalance.innerText = balanceAmount + inputAmount;
+    } else {
+        totalBalance.innerText = balanceAmount - inputAmount;
+    }
 }
 
 // deposit
@@ -20,37 +32,21 @@ document.getElementById("deposit-btn").addEventListener("click", function () {
     // collect deposit
     const depositAmount = getInputValue("deposit-input");
 
-    // previous deposit
+    // update deposit
     updateTotalValue("deposit-total", depositAmount);
 
-    // current Balance
-    const currentBalance = document.getElementById("balance-total");
-    const currentBalanceText = currentBalance.innerText;
-    const currentBalanceAmount = parseFloat(currentBalanceText);
-
-    // new total balance
-    const totalBalance = currentBalanceAmount + depositAmount;
-
-    // add balance
-    currentBalance.innerText = totalBalance;
+    // update Balance
+    updateBalance(depositAmount, true);
 });
 
 // withdraw
 document.getElementById("withdraw-btn").addEventListener("click", function () {
-    // collect deposit
+    // collect withdraw
     const withdrawAmount = getInputValue("withdraw-input");
 
-    // previous deposit
+    // update withdraw
     updateTotalValue("withdraw-total", withdrawAmount);
 
-    // current Balance
-    const previousBalance = document.getElementById("balance-total");
-    const previousBalanceText = previousBalance.innerText;
-    const previousBalanceAmount = parseFloat(previousBalanceText);
-
-    // new total balance
-    const nowBalance = previousBalanceAmount - withdrawAmount;
-
-    // add balance
-    previousBalance.innerText = nowBalance;
+    // update Balance
+    updateBalance(withdrawAmount, false);
 });
