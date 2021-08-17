@@ -1,21 +1,29 @@
-// deposit
-document.getElementById("deposit-btn").addEventListener("click", function () {
-    // collect deposit
-    const depositInput = document.getElementById("deposit-input");
-    const addDepositText = depositInput.value;
-    const addDepositAmount = parseFloat(addDepositText);
-    depositInput.value = "";
+// collect value from input field
+function getInputValue(inputId) {
+    const collectInput = document.getElementById(inputId);
+    const inputValueText = collectInput.value;
+    const inputValueAmount = parseFloat(inputValueText);
+    collectInput.value = "";
+    return inputValueAmount;
+}
 
-    // previous deposit
-    const currentDeposit = document.getElementById("deposit-total");
+// get and update total
+function updateTotalValue(valueId, amount) {
+    const currentDeposit = document.getElementById(valueId);
     const currentDepositText = currentDeposit.innerText;
     const currentDepositAmount = parseFloat(currentDepositText);
 
-    // total new deposit
-    const totalDeposit = currentDepositAmount + addDepositAmount;
+    // total new value
+    currentDeposit.innerText = currentDepositAmount + amount;
+}
 
-    // adding new deposit
-    currentDeposit.innerText = totalDeposit;
+// deposit
+document.getElementById("deposit-btn").addEventListener("click", function () {
+    // collect deposit
+    const depositAmount = getInputValue("deposit-input");
+
+    // previous deposit
+    updateTotalValue("deposit-total", depositAmount);
 
     // current Balance
     const currentBalance = document.getElementById("balance-total");
@@ -23,7 +31,7 @@ document.getElementById("deposit-btn").addEventListener("click", function () {
     const currentBalanceAmount = parseFloat(currentBalanceText);
 
     // new total balance
-    const totalBalance = currentBalanceAmount + addDepositAmount;
+    const totalBalance = currentBalanceAmount + depositAmount;
 
     // add balance
     currentBalance.innerText = totalBalance;
@@ -32,21 +40,11 @@ document.getElementById("deposit-btn").addEventListener("click", function () {
 // withdraw
 document.getElementById("withdraw-btn").addEventListener("click", function () {
     // collect deposit
-    const withdrawInput = document.getElementById("withdraw-input");
-    const addWithdrawText = withdrawInput.value;
-    const addWithdrawAmount = parseFloat(addWithdrawText);
-    withdrawInput.value = "";
+    const withdrawAmount = getInputValue("withdraw-input");
 
     // previous deposit
-    const currentWithdraw = document.getElementById("withdraw-total");
-    const currentWithdrawText = currentWithdraw.innerText;
-    const currentWithdrawAmount = parseFloat(currentWithdrawText);
-
-    // total new deposit
-    const totalWithdraw = currentWithdrawAmount + addWithdrawAmount;
-
-    // adding new deposit
-    currentWithdraw.innerText = totalWithdraw;
+    updateTotalValue("withdraw-total", withdrawAmount);
+     
 
     // current Balance
     const previousBalance = document.getElementById("balance-total");
@@ -54,7 +52,7 @@ document.getElementById("withdraw-btn").addEventListener("click", function () {
     const previousBalanceAmount = parseFloat(previousBalanceText);
 
     // new total balance
-    const nowBalance = previousBalanceAmount - addWithdrawAmount;
+    const nowBalance = previousBalanceAmount - withdrawAmount;
 
     // add balance
     previousBalance.innerText = nowBalance;
